@@ -1,0 +1,8 @@
+{
+    "onnxruntime-web": {
+        "spec": "onnxruntime-web",
+        "module": "onnxruntime-web",
+        "builtin": false,
+        "known": false
+    }
+}
