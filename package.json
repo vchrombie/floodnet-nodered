@@ -1,0 +1,11 @@
+{
+    "name": "node-red-project",
+    "description": "A Node-RED Project",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+        "node-red-contrib-credentials": "~0.2.2",
+        "onnxruntime-node": "^1.14.0",
+        "onnxruntime-web": "^1.14.0"
+    }
+}
