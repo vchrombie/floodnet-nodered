@@ -40,6 +40,14 @@
     "env": []
   },
   {
+    "id": "65e69383a183aa51",
+    "type": "tab",
+    "label": "Calibration (Night Median)",
+    "disabled": false,
+    "info": "",
+    "env": []
+  },
+  {
     "id": "49d4aa47d32b30f6",
     "type": "group",
     "z": "63ec5913b540d2a2",
@@ -151,7 +159,7 @@
     ],
     "x": 754,
     "y": 39,
-    "w": 672,
+    "w": 592,
     "h": 262
   },
   {
@@ -169,7 +177,9 @@
       "51effb339ea4f74e"
     ],
     "x": 134,
-    "y": 579
+    "y": 579,
+    "w": 292,
+    "h": 222
   },
   {
     "id": "1865cd32a82dbefb",
@@ -188,7 +198,9 @@
       "e45925d81c5ddfda"
     ],
     "x": 444,
-    "y": 579
+    "y": 579,
+    "w": 272,
+    "h": 282
   },
   {
     "id": "d49f1d8b8db525b7",
@@ -203,7 +215,9 @@
       "0193d0cc4010e60f"
     ],
     "x": 754,
-    "y": 579
+    "y": 579,
+    "w": 272,
+    "h": 122
   },
   {
     "id": "3ea6fd44faed79df",
@@ -219,7 +233,9 @@
       "9ad7100c5363a7ec"
     ],
     "x": 454,
-    "y": 399
+    "y": 399,
+    "w": 212,
+    "h": 162
   },
   {
     "id": "e0b909d7e6cfeb76",
@@ -234,7 +250,9 @@
       "567665bec1f6ee11"
     ],
     "x": 134,
-    "y": 419
+    "y": 419,
+    "w": 292,
+    "h": 122
   },
   {
     "id": "5b30fca8667a9132",
@@ -249,7 +267,9 @@
       "8155fc33af5f6c4d"
     ],
     "x": 754,
-    "y": 419
+    "y": 419,
+    "w": 272,
+    "h": 122
   },
   {
     "id": "b4ee31501a2a5cc6",
@@ -268,7 +288,9 @@
       "ed9c3a5a7b9aedf2"
     ],
     "x": 454,
-    "y": 59
+    "y": 59,
+    "w": 232,
+    "h": 302
   },
   {
     "id": "ef85790a3a4608f6",
@@ -284,7 +306,9 @@
       "821cdc05c82fbd0a"
     ],
     "x": 1054,
-    "y": 119
+    "y": 119,
+    "w": 232,
+    "h": 162
   },
   {
     "id": "10e31bf8eea8dbec",
@@ -298,7 +322,9 @@
       "9f175b1da3175ea9"
     ],
     "x": 754,
-    "y": 79
+    "y": 79,
+    "w": 232,
+    "h": 82
   },
   {
     "id": "45f90142088df121",
@@ -312,7 +338,9 @@
       "4f87538ceb946c0d"
     ],
     "x": 134,
-    "y": 79
+    "y": 79,
+    "w": 272,
+    "h": 82
   },
   {
     "id": "dd8650625e800ec3",
@@ -413,9 +441,7 @@
       "c53d8aedbedb0c01"
     ],
     "x": 74,
-    "y": 19,
-    "w": 292,
-    "h": 242
+    "y": 19
   },
   {
     "id": "54b2fd6f819586fd",
@@ -430,9 +456,7 @@
       "91c134739839b339"
     ],
     "x": 714,
-    "y": 139,
-    "w": 452,
-    "h": 82
+    "y": 139
   },
   {
     "id": "06b2d6dfc4c5fa10",
@@ -448,9 +472,7 @@
       "173f3a7cea0eb1df"
     ],
     "x": 414,
-    "y": 99,
-    "w": 252,
-    "h": 162
+    "y": 99
   },
   {
     "id": "4c4f3a4a36bdf543",
@@ -482,7 +504,9 @@
       "bc5fec93c252600b"
     ],
     "x": 1224,
-    "y": 459
+    "y": 459,
+    "w": 402,
+    "h": 182
   },
   {
     "id": "70f81c1a84a213ff",
@@ -504,7 +528,9 @@
       "57dbb6a784f2eaca"
     ],
     "x": 1214,
-    "y": 339
+    "y": 339,
+    "w": 632,
+    "h": 82
   },
   {
     "id": "1cf976c69d3a9eae",
@@ -1059,7 +1085,7 @@
     "z": "63ec5913b540d2a2",
     "g": "58545360d7955b4b",
     "name": "flood sensor decode",
-    "func": "const { tables, b, night_median, error_flag } = msg;\n\nconst table_name = 'depth_data';\ntables[table_name] = tables[table_name] || {};\nconst data = tables[table_name];\ndata['error_flag'] = error_flag;\n\nconst sensor_table_name = 'lora_sensor_data';\ntables[sensor_table_name] = tables[sensor_table_name] || {};\nconst sensordata = tables[sensor_table_name];\n\nconst weather_table_name = 'weather_data';\ntables[weather_table_name] = tables[weather_table_name] || {};\nconst weatherdata = tables[weather_table_name];\n\n// Converting Error Flag bits\ndata['error_flag'] = '' + b[0] % 2;\n// battery -> mV\nsensordata['batt_mv'] = ((b[2] << 8) | b[1]);\n// distance\ndistance = (b[4] << 8) | b[3];\ndata['dist_mm'] = distance;\n\n// extra fields\nif (b.length > 5){\n    // temperature\n    weatherdata['temp_c'] = ((b[6] & 0x80 ? 0xFFFF<<16 : 0) | b[6]<<8 | b[5]) / 100;\n    // pressure\n    weatherdata['pres_mb'] = ((((b[10]<<24) | (b[9]<<16)) | (b[8]<<8)) | b[7]) / 100;\n    // altitude\n    weatherdata['alt_m'] = ((b[12] << 8) | b[11]) / 100;\n    // humidity\n    weatherdata['humid_percen'] = ((b[14] << 8) | b[13]) / 100;\n}\n\n// convert distance to depth\nnode.warn([msg.dev_id, night_median])\nif(night_median !== undefined) {\n    let depth = night_median - distance;\n    data['depth_raw_mm'] = depth;\n\n    // process depth\n    if (depth <= 10){\n        depth = 0;\n        data['depth_filt_mm'] = 'night_median';\n    }\n    if(depth > night_median) {\n        depth = undefined;\n        data['depth_filt_mm'] = 'night_median';\n    }\n\n    data['depth_filt_mm'] = depth;\n    data['depth_proc_mm'] = depth;\n}\n\nreturn msg;",
+    "func": "const { tables, b, night_median, error_flag } = msg;\n\nconst table_name = 'depth_data';\ntables[table_name] = tables[table_name] || {};\nconst data = tables[table_name];\ndata['error_flag'] = error_flag;\n\nconst sensor_table_name = 'lora_sensor_data';\ntables[sensor_table_name] = tables[sensor_table_name] || {};\nconst sensordata = tables[sensor_table_name];\n\nconst weather_table_name = 'weather_data';\ntables[weather_table_name] = tables[weather_table_name] || {};\nconst weatherdata = tables[weather_table_name];\n\n// Converting Error Flag bits\ndata['error_flag'] = '' + b[0] % 2;\n// battery -> mV\nsensordata['batt_mv'] = ((b[2] << 8) | b[1]);\n// distance\ndistance = (b[4] << 8) | b[3];\ndata['dist_mm'] = distance;\n\n// extra fields\nif (b.length > 5){\n    // temperature\n    weatherdata['temp_c'] = ((b[6] & 0x80 ? 0xFFFF<<16 : 0) | b[6]<<8 | b[5]) / 100;\n    // pressure\n    weatherdata['pres_mb'] = ((((b[10]<<24) | (b[9]<<16)) | (b[8]<<8)) | b[7]) / 100;\n    // altitude\n    weatherdata['alt_m'] = ((b[12] << 8) | b[11]) / 100;\n    // humidity\n    weatherdata['humid_percen'] = ((b[14] << 8) | b[13]) / 100;\n}\n\n// convert distance to depth\n// node.warn([msg.dev_id, night_median])\nif(night_median !== undefined) {\n    let depth = night_median - distance;\n    data['depth_raw_mm'] = depth;\n\n    // process depth\n    if (depth <= 10){\n        depth = 0;\n        data['depth_filt_mm'] = 'night_median';\n    }\n    if(depth > night_median) {\n        depth = undefined;\n        data['depth_filt_mm'] = 'night_median';\n    }\n\n    data['depth_filt_mm'] = depth;\n    data['depth_proc_mm'] = depth;\n}\n\nreturn msg;",
     "outputs": 1,
     "noerr": 0,
     "initialize": "",
@@ -1690,8 +1716,8 @@
     "targetType": "jsonata",
     "statusVal": "dev_id",
     "statusType": "auto",
-    "x": 1330,
-    "y": 80,
+    "x": 1250,
+    "y": 200,
     "wires": []
   },
   {
@@ -1704,7 +1730,7 @@
     "tosidebar": false,
     "console": false,
     "tostatus": true,
-    "complete": "dev_id & \" | \" & app_name",
+    "complete": "dev_id & \" | \" & app_name & \" | \" & night_median",
     "targetType": "jsonata",
     "statusVal": "dev_id",
     "statusType": "auto",
@@ -5722,6 +5748,162 @@
       [
         "eabb009cedb873fb"
       ]
+    ]
+  },
+  {
+    "id": "97a92550bb51b952",
+    "type": "inject",
+    "z": "65e69383a183aa51",
+    "name": "",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "15 05 * * *",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "[\t   'floodnet-live'\t]",
+    "payloadType": "jsonata",
+    "x": 190,
+    "y": 240,
+    "wires": [
+      [
+        "0d93778db11fa758"
+      ]
+    ]
+  },
+  {
+    "id": "93083f815ba539af",
+    "type": "function",
+    "z": "65e69383a183aa51",
+    "name": "Create query",
+    "func": "var bucket_name = msg.payload;\nvar app_name = bucket_name.split('-')[1];\n\nvar lookback_days = 3;\n\nvar std_limit = 10.0;\nvar max_val_filt = 4000;\n\nvar st_hour = 22;\nvar en_hour = 5;\n\nvar meas_name = 'flood-sensor';\nvar field_name = 'dist_mm';\n\nvar st_ts = new Date();\nst_ts.setDate(st_ts.getDate() - lookback_days);\nst_ts.setHours(st_hour);\nst_ts.setMinutes(0);\nst_ts.setSeconds(0);\nst_ts.setMilliseconds(0);\n\nvar en_ts = new Date();\nen_ts.setHours(en_hour);\nen_ts.setMinutes(0);\nen_ts.setSeconds(0);\nen_ts.setMilliseconds(0);\n\nvar tz_offset = new Date().getTimezoneOffset() / 60;\nvar st_hour_utc = (st_ts.getHours() + tz_offset) % 24;\nvar en_hour_utc = (en_ts.getHours() + tz_offset) % 24;\n\nreturn {\n    ...msg,\n    query: `\n-- top-level query lets us filter down using stddev\nselect \n    deployment_id, \n    median_height_mm\nfrom (\n\t\tselect \n\t\t    -- calc stddev to filter out potential floods/misleading nights\n\t\t\tstddev(\"${field_name}\") as dist_std,\n\t\t\t\n\t\t\t-- get median\n\t\t\tPERCENTILE_CONT(0.5) \n\t\t\t    WITHIN GROUP(ORDER BY \"${field_name}\") \n\t\t\t    as median_height_mm,\n\n\t\t\tdeployment_id\n\t\tfrom ${app_name}.depth_data\n\t\twhere \n\t\t    -- filter last N days\n\t\t\t(time between\n\t\t\t    to_timestamp(${st_ts.getTime() / 1000}) and \n\t\t\t    to_timestamp(${en_ts.getTime() / 1000})\n\t\t\t) and \n\n            -- filter by time of day\t\t\t\n\t\t\t(extract(hour from time) not between \n\t\t\t    ${st_hour_utc} and ${en_hour_utc}\n\t\t\t) and \n\n\t\t\t-- filter out out-of-range data\n\t\t\t\"${field_name}\" < ${max_val_filt}\n\t\tgroup by deployment_id\n) s\nwhere dist_std < ${std_limit}\n`\n};",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 450,
+    "y": 240,
+    "wires": [
+      [
+        "d44fa3133fc3a99e",
+        "aec269bf5d046e8e"
+      ]
+    ]
+  },
+  {
+    "id": "0d93778db11fa758",
+    "type": "split",
+    "z": "65e69383a183aa51",
+    "name": "",
+    "splt": "\\n",
+    "spltType": "str",
+    "arraySplt": 1,
+    "arraySpltType": "len",
+    "stream": false,
+    "addname": "",
+    "x": 310,
+    "y": 240,
+    "wires": [
+      [
+        "93083f815ba539af"
+      ]
+    ]
+  },
+  {
+    "id": "d44fa3133fc3a99e",
+    "type": "debug",
+    "z": "65e69383a183aa51",
+    "name": "",
+    "active": true,
+    "tosidebar": false,
+    "console": false,
+    "tostatus": true,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "payload",
+    "statusType": "auto",
+    "x": 630,
+    "y": 200,
+    "wires": []
+  },
+  {
+    "id": "8744e043d5b34f18",
+    "type": "debug",
+    "z": "65e69383a183aa51",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 810,
+    "y": 220,
+    "wires": []
+  },
+  {
+    "id": "aec269bf5d046e8e",
+    "type": "postgresql",
+    "z": "65e69383a183aa51",
+    "name": "",
+    "query": "",
+    "postgreSQLConfig": "ec8702db3a5c2dc7",
+    "split": false,
+    "rowsPerMsg": 1,
+    "outputs": 1,
+    "x": 630,
+    "y": 260,
+    "wires": [
+      [
+        "a2443c2774b1616d",
+        "8744e043d5b34f18"
+      ]
+    ]
+  },
+  {
+    "id": "a2443c2774b1616d",
+    "type": "split",
+    "z": "65e69383a183aa51",
+    "name": "",
+    "splt": "\\n",
+    "spltType": "str",
+    "arraySplt": 1,
+    "arraySpltType": "len",
+    "stream": false,
+    "addname": "",
+    "x": 790,
+    "y": 260,
+    "wires": [
+      [
+        "f8c82157c0baeb1f"
+      ]
+    ]
+  },
+  {
+    "id": "f8c82157c0baeb1f",
+    "type": "postgresql",
+    "z": "65e69383a183aa51",
+    "name": "",
+    "query": "update deployments\nset median_height_mm = '{{{ payload.median_height_mm }}}'\nwhere deployment_id = '{{{ payload.deployment_id }}}'",
+    "postgreSQLConfig": "ec8702db3a5c2dc7",
+    "split": false,
+    "rowsPerMsg": 1,
+    "outputs": 1,
+    "x": 930,
+    "y": 260,
+    "wires": [
+      []
     ]
   }
 ]
