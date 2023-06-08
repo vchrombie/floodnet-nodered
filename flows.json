@@ -357,7 +357,9 @@
       "df20dc39e5cd477f"
     ],
     "x": 1014,
-    "y": 179
+    "y": 179,
+    "w": 212,
+    "h": 202
   },
   {
     "id": "71903805cd0d889c",
@@ -375,7 +377,9 @@
       "9bf57e6249c59ecd"
     ],
     "x": 34,
-    "y": 279
+    "y": 279,
+    "w": 272,
+    "h": 242
   },
   {
     "id": "480b9506fde72aba",
@@ -393,7 +397,9 @@
       "08ce9ebb98a5b0dd"
     ],
     "x": 54,
-    "y": 19
+    "y": 19,
+    "w": 252,
+    "h": 242
   },
   {
     "id": "9352ad6f956a55e5",
@@ -407,7 +413,9 @@
       "7d0057e8e7cee19f"
     ],
     "x": 1014,
-    "y": 79
+    "y": 79,
+    "w": 212,
+    "h": 82
   },
   {
     "id": "c82e10aebf681f8e",
@@ -423,7 +431,9 @@
       "7d5ef9f277d6d75b"
     ],
     "x": 328,
-    "y": 53
+    "y": 53,
+    "w": 644,
+    "h": 434
   },
   {
     "id": "26e52242665c9700",
@@ -441,7 +451,9 @@
       "c53d8aedbedb0c01"
     ],
     "x": 74,
-    "y": 19
+    "y": 19,
+    "w": 292,
+    "h": 242
   },
   {
     "id": "54b2fd6f819586fd",
@@ -456,7 +468,9 @@
       "91c134739839b339"
     ],
     "x": 714,
-    "y": 139
+    "y": 139,
+    "w": 452,
+    "h": 82
   },
   {
     "id": "06b2d6dfc4c5fa10",
@@ -472,7 +486,9 @@
       "173f3a7cea0eb1df"
     ],
     "x": 414,
-    "y": 99
+    "y": 99,
+    "w": 252,
+    "h": 162
   },
   {
     "id": "4c4f3a4a36bdf543",
@@ -487,7 +503,9 @@
       "dad809885188fc08"
     ],
     "x": 1004,
-    "y": 399
+    "y": 399,
+    "w": 402,
+    "h": 82
   },
   {
     "id": "8e1edb810a78ebfc",
@@ -560,7 +578,9 @@
       "a18955d77d8dcc75"
     ],
     "x": 274,
-    "y": 79
+    "y": 79,
+    "w": 912,
+    "h": 382
   },
   {
     "id": "f199da2ee9eab818",
@@ -590,7 +610,9 @@
       "0e6bf01e8f93c81f"
     ],
     "x": 274,
-    "y": 737
+    "y": 737,
+    "w": 892,
+    "h": 344
   },
   {
     "id": "9adc6d7359c13beb",
@@ -636,7 +658,9 @@
       "ce34743f0495640b"
     ],
     "x": 114,
-    "y": 1699
+    "y": 1699,
+    "w": 812,
+    "h": 622
   },
   {
     "id": "f0d2bcafa76d2cf5",
@@ -655,7 +679,9 @@
       "6a6632be50dd4cd7"
     ],
     "x": 1234,
-    "y": 159
+    "y": 159,
+    "w": 612,
+    "h": 202
   },
   {
     "id": "e794c152f8008813",
@@ -677,7 +703,9 @@
       "9cb52c9249da41a4"
     ],
     "x": 1194,
-    "y": 719
+    "y": 719,
+    "w": 652,
+    "h": 282
   },
   {
     "id": "fc41ebbc44e32af4",
@@ -701,7 +729,9 @@
       "cc642b6f259125fa"
     ],
     "x": 274,
-    "y": 499
+    "y": 499,
+    "w": 912,
+    "h": 202
   },
   {
     "id": "3de65d04819447c9",
@@ -740,7 +770,9 @@
       "e45b81a2eb2be9b4"
     ],
     "x": 674,
-    "y": 79
+    "y": 79,
+    "w": 272,
+    "h": 282
   },
   {
     "id": "e08057a01676213c",
@@ -759,7 +791,9 @@
       "52169d2330339a26"
     ],
     "x": 354,
-    "y": 179
+    "y": 179,
+    "w": 312,
+    "h": 282
   },
   {
     "id": "6f9ef14b0674fee4",
@@ -783,6 +817,29 @@
     "y": 419,
     "w": 372,
     "h": 282
+  },
+  {
+    "id": "44b9cc0aad40ed79",
+    "type": "group",
+    "z": "65e69383a183aa51",
+    "name": "Compute Night Median",
+    "style": {
+      "label": true
+    },
+    "nodes": [
+      "97a92550bb51b952",
+      "93083f815ba539af",
+      "0d93778db11fa758",
+      "d44fa3133fc3a99e",
+      "8744e043d5b34f18",
+      "aec269bf5d046e8e",
+      "a2443c2774b1616d",
+      "f8c82157c0baeb1f"
+    ],
+    "x": 34,
+    "y": 79,
+    "w": 632,
+    "h": 222
   },
   {
     "id": "8f7859036b247ff4",
@@ -5754,6 +5811,7 @@
     "id": "97a92550bb51b952",
     "type": "inject",
     "z": "65e69383a183aa51",
+    "g": "44b9cc0aad40ed79",
     "name": "",
     "props": [
       {
@@ -5771,8 +5829,8 @@
     "topic": "",
     "payload": "[\t   'floodnet-live'\t]",
     "payloadType": "jsonata",
-    "x": 190,
-    "y": 240,
+    "x": 130,
+    "y": 120,
     "wires": [
       [
         "0d93778db11fa758"
@@ -5783,6 +5841,7 @@
     "id": "93083f815ba539af",
     "type": "function",
     "z": "65e69383a183aa51",
+    "g": "44b9cc0aad40ed79",
     "name": "Create query",
     "func": "var bucket_name = msg.payload;\nvar app_name = bucket_name.split('-')[1];\n\nvar lookback_days = 3;\n\nvar std_limit = 10.0;\nvar max_val_filt = 4000;\n\nvar st_hour = 22;\nvar en_hour = 5;\n\nvar meas_name = 'flood-sensor';\nvar field_name = 'dist_mm';\n\nvar st_ts = new Date();\nst_ts.setDate(st_ts.getDate() - lookback_days);\nst_ts.setHours(st_hour);\nst_ts.setMinutes(0);\nst_ts.setSeconds(0);\nst_ts.setMilliseconds(0);\n\nvar en_ts = new Date();\nen_ts.setHours(en_hour);\nen_ts.setMinutes(0);\nen_ts.setSeconds(0);\nen_ts.setMilliseconds(0);\n\nvar tz_offset = new Date().getTimezoneOffset() / 60;\nvar st_hour_utc = (st_ts.getHours() + tz_offset) % 24;\nvar en_hour_utc = (en_ts.getHours() + tz_offset) % 24;\n\nreturn {\n    ...msg,\n    query: `\n-- top-level query lets us filter down using stddev\nselect \n    deployment_id, \n    median_height_mm\nfrom (\n\t\tselect \n\t\t    -- calc stddev to filter out potential floods/misleading nights\n\t\t\tstddev(\"${field_name}\") as dist_std,\n\t\t\t\n\t\t\t-- get median\n\t\t\tPERCENTILE_CONT(0.5) \n\t\t\t    WITHIN GROUP(ORDER BY \"${field_name}\") \n\t\t\t    as median_height_mm,\n\n\t\t\tdeployment_id\n\t\tfrom ${app_name}.depth_data\n\t\twhere \n\t\t    -- filter last N days\n\t\t\t(time between\n\t\t\t    to_timestamp(${st_ts.getTime() / 1000}) and \n\t\t\t    to_timestamp(${en_ts.getTime() / 1000})\n\t\t\t) and \n\n            -- filter by time of day\t\t\t\n\t\t\t(extract(hour from time) not between \n\t\t\t    ${st_hour_utc} and ${en_hour_utc}\n\t\t\t) and \n\n\t\t\t-- filter out out-of-range data\n\t\t\t\"${field_name}\" < ${max_val_filt}\n\t\tgroup by deployment_id\n) s\nwhere dist_std < ${std_limit}\n`\n};",
     "outputs": 1,
@@ -5790,8 +5849,8 @@
     "initialize": "",
     "finalize": "",
     "libs": [],
-    "x": 450,
-    "y": 240,
+    "x": 190,
+    "y": 200,
     "wires": [
       [
         "d44fa3133fc3a99e",
@@ -5803,6 +5862,7 @@
     "id": "0d93778db11fa758",
     "type": "split",
     "z": "65e69383a183aa51",
+    "g": "44b9cc0aad40ed79",
     "name": "",
     "splt": "\\n",
     "spltType": "str",
@@ -5810,8 +5870,8 @@
     "arraySpltType": "len",
     "stream": false,
     "addname": "",
-    "x": 310,
-    "y": 240,
+    "x": 150,
+    "y": 160,
     "wires": [
       [
         "93083f815ba539af"
@@ -5822,6 +5882,7 @@
     "id": "d44fa3133fc3a99e",
     "type": "debug",
     "z": "65e69383a183aa51",
+    "g": "44b9cc0aad40ed79",
     "name": "",
     "active": true,
     "tosidebar": false,
@@ -5831,14 +5892,15 @@
     "targetType": "msg",
     "statusVal": "payload",
     "statusType": "auto",
-    "x": 630,
-    "y": 200,
+    "x": 190,
+    "y": 240,
     "wires": []
   },
   {
     "id": "8744e043d5b34f18",
     "type": "debug",
     "z": "65e69383a183aa51",
+    "g": "44b9cc0aad40ed79",
     "name": "",
     "active": true,
     "tosidebar": true,
@@ -5848,22 +5910,23 @@
     "targetType": "msg",
     "statusVal": "",
     "statusType": "auto",
-    "x": 810,
-    "y": 220,
+    "x": 550,
+    "y": 140,
     "wires": []
   },
   {
     "id": "aec269bf5d046e8e",
     "type": "postgresql",
     "z": "65e69383a183aa51",
-    "name": "",
+    "g": "44b9cc0aad40ed79",
+    "name": "calc median",
     "query": "",
     "postgreSQLConfig": "ec8702db3a5c2dc7",
     "split": false,
     "rowsPerMsg": 1,
     "outputs": 1,
-    "x": 630,
-    "y": 260,
+    "x": 370,
+    "y": 200,
     "wires": [
       [
         "a2443c2774b1616d",
@@ -5875,6 +5938,7 @@
     "id": "a2443c2774b1616d",
     "type": "split",
     "z": "65e69383a183aa51",
+    "g": "44b9cc0aad40ed79",
     "name": "",
     "splt": "\\n",
     "spltType": "str",
@@ -5882,8 +5946,8 @@
     "arraySpltType": "len",
     "stream": false,
     "addname": "",
-    "x": 790,
-    "y": 260,
+    "x": 530,
+    "y": 200,
     "wires": [
       [
         "f8c82157c0baeb1f"
@@ -5894,13 +5958,14 @@
     "id": "f8c82157c0baeb1f",
     "type": "postgresql",
     "z": "65e69383a183aa51",
-    "name": "",
+    "g": "44b9cc0aad40ed79",
+    "name": "update median",
     "query": "update deployments\nset median_height_mm = '{{{ payload.median_height_mm }}}'\nwhere deployment_id = '{{{ payload.deployment_id }}}'",
     "postgreSQLConfig": "ec8702db3a5c2dc7",
     "split": false,
     "rowsPerMsg": 1,
     "outputs": 1,
-    "x": 930,
+    "x": 560,
     "y": 260,
     "wires": [
       []
