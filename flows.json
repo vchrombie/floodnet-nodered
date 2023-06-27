@@ -2055,51 +2055,6 @@
     "wires": []
   },
   {
-    "id": "9a73c2b9a93cf09c",
-    "type": "inject",
-    "z": "63ec5913b540d2a2",
-    "name": "",
-    "props": [
-      {
-        "p": "payload"
-      },
-      {
-        "p": "topic",
-        "vt": "str"
-      }
-    ],
-    "repeat": "",
-    "crontab": "",
-    "once": false,
-    "onceDelay": 0.1,
-    "topic": "",
-    "payload": "",
-    "payloadType": "date",
-    "x": 160,
-    "y": 1180,
-    "wires": [
-      [
-        "a7239376f46251af"
-      ]
-    ]
-  },
-  {
-    "id": "a7239376f46251af",
-    "type": "debug",
-    "z": "63ec5913b540d2a2",
-    "name": "debug 48",
-    "active": true,
-    "tosidebar": true,
-    "console": false,
-    "tostatus": false,
-    "complete": "false",
-    "statusVal": "",
-    "statusType": "auto",
-    "x": 360,
-    "y": 1180,
-    "wires": []
-  },
-  {
     "id": "62f132ed4b7660a9",
     "type": "http request",
     "z": "59b6ea3e0dab2122",
