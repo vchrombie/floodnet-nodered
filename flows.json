@@ -177,7 +177,9 @@
       "51effb339ea4f74e"
     ],
     "x": 134,
-    "y": 579
+    "y": 579,
+    "w": 292,
+    "h": 222
   },
   {
     "id": "1865cd32a82dbefb",
@@ -196,7 +198,9 @@
       "e45925d81c5ddfda"
     ],
     "x": 444,
-    "y": 579
+    "y": 579,
+    "w": 272,
+    "h": 282
   },
   {
     "id": "d49f1d8b8db525b7",
@@ -211,7 +215,9 @@
       "0193d0cc4010e60f"
     ],
     "x": 754,
-    "y": 579
+    "y": 579,
+    "w": 272,
+    "h": 122
   },
   {
     "id": "3ea6fd44faed79df",
@@ -227,7 +233,9 @@
       "9ad7100c5363a7ec"
     ],
     "x": 454,
-    "y": 399
+    "y": 399,
+    "w": 212,
+    "h": 162
   },
   {
     "id": "e0b909d7e6cfeb76",
@@ -242,7 +250,9 @@
       "567665bec1f6ee11"
     ],
     "x": 134,
-    "y": 419
+    "y": 419,
+    "w": 292,
+    "h": 122
   },
   {
     "id": "5b30fca8667a9132",
@@ -257,7 +267,9 @@
       "8155fc33af5f6c4d"
     ],
     "x": 754,
-    "y": 419
+    "y": 419,
+    "w": 272,
+    "h": 122
   },
   {
     "id": "b4ee31501a2a5cc6",
@@ -276,7 +288,9 @@
       "ed9c3a5a7b9aedf2"
     ],
     "x": 454,
-    "y": 59
+    "y": 59,
+    "w": 232,
+    "h": 302
   },
   {
     "id": "ef85790a3a4608f6",
@@ -292,7 +306,9 @@
       "821cdc05c82fbd0a"
     ],
     "x": 1054,
-    "y": 119
+    "y": 119,
+    "w": 232,
+    "h": 162
   },
   {
     "id": "10e31bf8eea8dbec",
@@ -306,7 +322,9 @@
       "9f175b1da3175ea9"
     ],
     "x": 754,
-    "y": 79
+    "y": 79,
+    "w": 232,
+    "h": 82
   },
   {
     "id": "45f90142088df121",
@@ -320,7 +338,9 @@
       "4f87538ceb946c0d"
     ],
     "x": 134,
-    "y": 79
+    "y": 79,
+    "w": 292,
+    "h": 82
   },
   {
     "id": "dd8650625e800ec3",
@@ -484,7 +504,9 @@
       "bc5fec93c252600b"
     ],
     "x": 1224,
-    "y": 459
+    "y": 459,
+    "w": 402,
+    "h": 182
   },
   {
     "id": "70f81c1a84a213ff",
@@ -506,7 +528,9 @@
       "57dbb6a784f2eaca"
     ],
     "x": 1214,
-    "y": 339
+    "y": 339,
+    "w": 632,
+    "h": 82
   },
   {
     "id": "1cf976c69d3a9eae",
@@ -1758,7 +1782,7 @@
     "z": "63ec5913b540d2a2",
     "g": "9adc6d7359c13beb",
     "name": "Prepare insert",
-    "func": "const { \n    tables,\n    timestamp, dev_id, deployment_id, app_name, error_flag\n    \n} = msg;\n\n// const mustache = (d, c, i) => `{{{ msg.data[${i}][\"${c}\"] }}}`\n// // const N = x => x === undefined ? x : \"NULL\"\n// // const literal = (d, c, i) => N(d?.[c])\n\n// const sqlInsertObject = ({ table, schema, data, formatValue=mustache }) => {\n//     if(!data || !table) return;\n//     const columns = Object.keys(data.reduce((d, o) => ({...o, ...d}), {}));\n//     const values = data.map((d, i) => \n//         `\\n(${columns.map(c => formatValue(d, c, i)).join(', ')})`\n//     ).join(', ');\n//     return (\n//         `INSERT INTO ${schema || 'public'}.${table} (${columns}) VALUES ${values};`\n//     )\n// }\n\nconst sqlInsertObject = ({ table, schema, data }) => {\n    if(!data || !table) return;\n    const columns = Object.keys(data.reduce((d, o) => ({...o, ...d}), {}));\n    let j = 1;\n    let params = []\n    const values = data.map((d, i) => \n        `\\n(${columns.map(c => {\n            params.push(d[c]);\n            return `$${j++}`;\n        }).join(', ')})`\n    ).join(', ');\n    const query = `INSERT INTO ${schema || 'public'}.${table} (${columns}) VALUES ${values};`\n    return [query, params]\n}\n\nlet queries = [];\n\nfor(let name in tables) {\n    let t = tables[name];\n    t = Array.isArray(t) ? t : [t];\n    let data = t.map(d => ({ \n        dev_id, deployment_id,\n        time: new Date(timestamp).toISOString(),\n        ...d, \n    }))\n    \n    let [query, params] = sqlInsertObject({ \n        table: name,\n        schema: app_name.split('-').pop(),\n        data\n    })\n    if (params.length === 0) continue;\n    queries.push({ query, params });//, data\n}\n\n\n\nreturn [ queries ];",
+    "func": "const { \n    tables,\n    timestamp, dev_id, deployment_id, app_name, error_flag\n    \n} = msg;\n\n// const mustache = (d, c, i) => `{{{ msg.data[${i}][\"${c}\"] }}}`\n// // const N = x => x === undefined ? x : \"NULL\"\n// // const literal = (d, c, i) => N(d?.[c])\n\n// const sqlInsertObject = ({ table, schema, data, formatValue=mustache }) => {\n//     if(!data || !table) return;\n//     const columns = Object.keys(data.reduce((d, o) => ({...o, ...d}), {}));\n//     const values = data.map((d, i) => \n//         `\\n(${columns.map(c => formatValue(d, c, i)).join(', ')})`\n//     ).join(', ');\n//     return (\n//         `INSERT INTO ${schema || 'public'}.${table} (${columns}) VALUES ${values};`\n//     )\n// }\n\nconst sqlInsertObject = ({ table, schema, data }) => {\n    if(!data || !table) return;\n    const columns = Object.keys(data.reduce((d, o) => ({...o, ...d}), {}));\n    let j = 1;\n    let params = []\n    const values = data.map((d, i) => \n        `\\n(${columns.map(c => {\n            params.push(d[c]);\n            return `$${j++}`;\n        }).join(', ')})`\n    ).join(', ');\n    const query = `INSERT INTO ${schema || 'public'}.${table} (${columns}) VALUES ${values};`\n    return [query, params]\n}\n\nlet queries = [];\n\nfor(let name in tables) {\n    let t = tables[name];\n    t = Array.isArray(t) ? t : [t];\n    let data = t.filter(d => Object.keys(d).length > 0).map(d => ({ \n        dev_id, deployment_id,\n        time: new Date(timestamp).toISOString(),\n        ...d, \n    }))\n    \n    let [query, params] = sqlInsertObject({ \n        table: name,\n        schema: app_name.split('-').pop(),\n        data\n    })\n    if (params.length === 0) continue;\n    queries.push({ query, params });//, data\n}\n\n\n\nreturn [ queries ];",
     "outputs": 1,
     "noerr": 0,
     "initialize": "",
@@ -1977,7 +2001,7 @@
     "func": "// add as different field name\n// msg.payload[0].fields.depth_proc2_mm=msg.payload[0].fields.depth_proc_mm;\nconst devid = msg.dev_id;\nconst fbank = flow.get('getFilter')(devid)\nif(msg.historicalData && msg.historicalDataIndex === 0) {\n    fbank.clear();\n}\n\n// Filters applied!\nconst msgs = fbank.filter(msg)\n\n// for(let m of msgs) {\n//     const dist2 = m.payload.depth_data.depth_proc_mm;\n//     const dist = m.payload.depth_data.depth_filt_mm;\n//     m.payload.depth_data.depth_proc_dist_mm=((dist||0) - (dist2||0))\n// }\n\nreturn [ msgs ];",
     "outputs": 1,
     "noerr": 0,
-    "initialize": "class Filter {\n    constructor({ name, depthField='depth_proc_mm', maxMins=6, nHistory=0, isRaining=null }={}) {\n        this.name = name;\n        this.state = {};\n\n        this.maxMs = maxMins*60*1000;\n        this.depthField = depthField;\n        this._isRaining = isRaining;\n        this.state.buffer = new Deque(nHistory+1);\n    }\n    clear() {\n        this.state.buffer.length = 0;\n    }\n    isRaining(t) {\n        return this._isRaining ? this._isRaining(t) : null;\n    }\n    isInvalid(msg, t) {\n        // check if the time difference between points is very large\n        // if they are, we're less confident about the filter rules\n        let [m1, d1, t1] = this.state.buffer[this.state.buffer.length-2];\n        let invalid = this.maxMs && (t - t1) > this.maxMs;\n        if(invalid) {\n            // if it's not raining we can afford to be a bit more \n            // lenient with the filters.\n            const rain = this.isRaining(t);\n            invalid = invalid && rain; // only invalid if raining too\n            this.log(\n                rain ?\n                `blip invalid because of time difference ${(t - t1)/1000/60}min > ${this.maxMs/1000/60}min and it's raining` :\n                `blip large time difference ${(t - t1)/1000/60}min > ${this.maxMs/1000/60}min but it is not raining`)\n            this.setReason(msg, rain ? `?${this.name}:cancelled-rain-time-diff` : `?${this.name}:no-rain-time-diff`)\n        }\n        return invalid;\n    }\n\n    \n    log(...args) { \n        node.warn(...args) \n    }\n    unpack(msg) {\n        const {tables: {depth_data}, timestamp} = msg;\n        let depth = depth_data[this.depthField];\n        depth = depth == null ? 0 : parseInt(depth);\n        // if(isNaN(depth)) {\n        //     this.log(`${this.name}: bad depth value ${fields[this.depthField]}`);\n        //     depth = 0;\n        // }\n        return [depth, parseFloat(timestamp)];\n    }\n    override(msg, depth, reason=null) {\n        msg.tables.depth_data[this.depthField] = depth;\n        reason && this.setReason(msg, reason);\n        return msg;\n    }\n    setReason(msg, reason) {\n        let prevReason = msg.tables.depth_data.depth_filt_stages_applied || '';\n        msg.tables.depth_data.depth_filt_stages_applied = prevReason + '|' + reason;\n        return msg;\n    }\n}\n\n\nclass RangeFilter extends Filter {\n    constructor({ height=null, noiseFloor=10, name='range' }={}) {\n        super({ name });\n        this.height = height;\n        this.noiseFloor = noiseFloor;\n    }\n    filter(msg) {\n        let [depth, t] = this.unpack(msg);\n        if(isNaN(depth)) return [msg];\n        const night_median = msg.night_median;\n        // values below this are likely just noise\n        if(depth > 0 && depth < this.noiseFloor) this.override(msg, 0, 'range:noise-floor');\n        // values above this are not possible\n        if(this.height && depth > this.height) this.override(msg, null, 'range:max-height');\n        // values above this are not possible\n        if(night_median && depth > night_median) this.override(msg, null, 'range:night-median');\n        return [msg];\n    }\n}\n\n\nclass GradFilter extends Filter {\n    constructor({ inchmin=10, spotty_coverage_height_ratio=0.05, name='gradient' }={}) {\n        super({ name, nHistory: 1 });\n        this.min_mmps = inchmin * 25.4 / 60 / 1000;\n        this.spotty_coverage_height_ratio = spotty_coverage_height_ratio\n    }\n    clear() { \n        super.clear();\n        this.state.filtering = false;\n        this.state.true_last_depth = null;\n    }\n    filter(msg) {\n        let [depth, t] = this.unpack(msg);\n        if(isNaN(depth)) return [msg];\n        this.state.buffer.push([msg, depth, t]);\n        if(this.state.buffer.length == 1) return [msg];\n\n        // get the rate of change from the last point\n        const [m1, d1, t1] = this.state.buffer[0];\n        if(Math.abs(t - t1) < 100) return [msg];\n        const dddt = (depth-d1) / Math.max(0.0001, t - t1);\n        // check that the change in depth isn't too fast/improbable\n        if (\n            dddt > this.min_mmps || \n            this.filtering && \n            this.state.true_last_depth && \n            Math.abs(depth - this.state.true_last_depth) / this.state.true_last_depth \n                < this.spotty_coverage_height_ratio\n        ) {\n            this.log(`gradient filtered ${d1} to ${depth}mm \u2206d/\u2206t=${dddt}mm/s`);\n            this.override(msg, d1, 'gradient');\n            this.state.buffer[this.state.buffer.length - 1][1] = d1;\n        }\n        else {\n            this.state.filtering = false;\n        }\n        this.state.true_last_depth = depth;\n        return [msg];\n    }\n}\n\n\nclass BlipFilter extends Filter {\n    constructor({ maxMins=6, blipMinDist=2, blipRatio=0.1, downwardBlips=false, isRaining=null, name='blip' }) {\n        super({ name, maxMins, isRaining, nHistory: 2 });\n        this.blipMinDist = blipMinDist;\n        this.blipRatio = blipRatio;\n        this.downwardBlips = downwardBlips;\n        this.clear();\n    }\n    clear() { \n        super.clear();\n        this.state.holding = false;\n    }\n    filter(msg) {\n        let [depth, t] = this.unpack(msg);\n        if(isNaN(depth)) return [msg];\n        this.state.buffer.push([msg, depth, t]);\n        if(this.state.buffer.length == 1) return [msg];\n\n        if(this.state.holding) {\n            let [[m1,d1,t1], [m2,d2,t2], [m3,d3,t3]] = this.state.buffer;\n            // If the blip jump is greater than some threshold and then it goes\n            // back down to close to the same value, set it as the average of the \n            // first and third values.\n            const baseDist = Math.abs(d1 - d3);\n            let blipDist = d2 - d1;\n            blipDist = this.downwardBlips ? Math.abs(blipDist) : blipDist;\n            if (\n                (blipDist > this.blipMinDist) && \n                (baseDist / blipDist < this.blipRatio) && \n                !this.isInvalid(msg, t)\n            ) {\n                this.log(`blip filtered ${[d1, d2, d3]}`);\n                this.override(m2, (d1+d3)/2, this.name);\n            }\n            // blips are only held for one value\n            this.state.holding = false;\n            return [m2, msg];\n        }\n\n        // check if it jumps up above the blip threshold\n        let dm1 = this.state.buffer[this.state.buffer.length-2][1];\n        if(depth - dm1 > this.blipMinDist) {\n            this.state.holding = true;\n            this.log(`blip hold ${dm1} ${depth}`);\n            return [];\n        }\n\n        return [msg];\n    }\n}\n\nclass BoxFilter extends Filter {\n    constructor({ boxRatio=0.05, maxMins=6, isRaining=null, name='box' }) {\n        super({ name, maxMins, isRaining, nHistory: 2 });\n        this.boxRatio = boxRatio;\n        this.state.initialBox = null;\n        this.state.boxStart = null;\n        this.clear();\n    }\n    clear() { \n        super.clear();\n        this.boxDiff = 0;\n        this.state.holding = false;\n        this.state.filtering = false;\n        this.state.initialBox = null;\n        this.state.boxStart = null;\n    }\n    filter(msg) {\n        let [depth, t] = this.unpack(msg);\n        if(isNaN(depth)) return [msg];\n        this.state.buffer.push([msg, depth, t])\n        if(this.state.buffer.length == 1) return [msg];\n\n        let [m2, d2, t2] = this.state.buffer[this.state.buffer.length-2];\n        if(this.state.filtering) {\n            // get the change between the last point\n            const dd = depth-d2;\n            // add it to the total box delta\n            this.state.boxDiff += dd;\n            // the the box conditions are met, squash it\n            if(\n                Math.abs(dd / this.state.boxJump) < this.boxRatio && \n                Math.abs(this.state.boxDiff / this.state.boxJump) < this.boxRatio  && \n                !this.isInvalid(t)\n            ) {\n                // hulk squash\n                this.log(`box filter ${this.state.initialBox} ... ${[d2, depth]} ${Math.abs(this.state.boxDiff)} / ${this.state.boxJump} > ${this.boxRatio}`);\n                if(this.holding) {\n                    this.override(m2, 0, this.name);\n                }\n                this.override(msg, 0, this.name);\n            } else {\n                // otherwise stop filtering\n                this.log(`box hold released ${this.state.initialBox} ... ${[d2, depth]} - ${(t-this.state.boxStart)/1000/60}mins`);\n                this.state.filtering = false;\n            }\n        } else {\n            // check if box conditions are met\n            if(d2 === 0 && depth > 0) {\n                this.log(`box hold ${[d2,  depth]}`);\n                this.state.boxDiff = 0;\n                this.state.holding = true;\n                this.state.filtering = true;\n                this.state.initialBox = [d2,  depth];\n                this.state.boxStart = t;\n                this.state.boxJump = depth - d2;\n                return [];\n            }\n        }\n\n        // if we are holding a value, make sure to send it\n        if(this.state.holding) {\n            this.state.holding = false;\n            return [m2, msg];\n        }\n\n        return [msg];\n    }\n}\n\n\nclass FilterBank {\n    constructor(filters) {\n        this.filters = filters;\n    }\n    filter(...msgs) {\n        return this.filters.reduce((msgs, f) => (\n            msgs.reduce((outputted, msg) => [...outputted, ...f.filter(msg)], [])\n        ), msgs);\n    }\n    clear() {\n        for(let f of this.filters) f.clear();\n    }\n}\n\n\nclass Deque extends Array {\n    constructor(maxsize) {\n        super();\n        this.maxsize = maxsize;\n    }\n    push(x) {\n      super.push(x);\n      while(this.length > this.maxsize) {\n        this.shift();\n      }\n    }\n}\n\nconst buildFBank = (opts={}) => {\n    const isRaining = (t) => {\n        const rain = global.get('rainQueue');\n        if(!rain || t < rain[0][1]) return false;\n        return rain && rain.anyRain();\n    }\n    return new FilterBank([\n        new RangeFilter({ ...opts }),\n        new GradFilter({ ...opts }),\n        new BlipFilter({ isRaining, ...opts }),\n        new BoxFilter({ isRaining, ...opts }),\n        new BlipFilter({ isRaining, ...opts}),\n    ]);\n}\n\nconst oldFbanks = flow.get('filterBanks') || {};\nconst fbanks = {};\nfor(let k in oldFbanks) {\n    fbanks[k] = buildFBank();\n    for(let i in fbanks[k].filters) {\n        const f=fbanks[k].filters[i];\n        const fOld=oldFbanks[k].filters[i];\n        f.state = {...f.state, ...fOld.state};\n    }\n}\nflow.set('filterBanks', fbanks);\n\nflow.set('getFilter', (devid, opts={}) => {\n    if(!fbanks[devid]) fbanks[devid] = buildFBank(opts);\n    return fbanks[devid];\n});",
+    "initialize": "class Filter {\n    constructor({ name, depthField='depth_proc_mm', maxMins=6, nHistory=0, isRaining=null }={}) {\n        this.name = name;\n        this.state = {};\n\n        this.maxMs = maxMins*60*1000;\n        this.depthField = depthField;\n        this._isRaining = isRaining;\n        this.state.buffer = new Deque(nHistory+1);\n    }\n    clear() {\n        this.state.buffer.length = 0;\n    }\n    isRaining(t) {\n        return this._isRaining ? this._isRaining(t) : null;\n    }\n    isInvalid(msg, t) {\n        // check if the time difference between points is very large\n        // if they are, we're less confident about the filter rules\n        let [m1, d1, t1] = this.state.buffer[this.state.buffer.length-2];\n        let invalid = this.maxMs && (t - t1) > this.maxMs;\n        if(invalid) {\n            // if it's not raining we can afford to be a bit more \n            // lenient with the filters.\n            const rain = this.isRaining(t);\n            invalid = invalid && rain; // only invalid if raining too\n            this.log(\n                rain ?\n                `blip invalid because of time difference ${(t - t1)/1000/60}min > ${this.maxMs/1000/60}min and it's raining` :\n                `blip large time difference ${(t - t1)/1000/60}min > ${this.maxMs/1000/60}min but it is not raining`)\n            this.setReason(msg, rain ? `?${this.name}:cancelled-rain-time-diff` : `?${this.name}:no-rain-time-diff`)\n        }\n        return invalid;\n    }\n\n    \n    log(...args) { \n        node.warn(...args) \n    }\n    unpack(msg) {\n        const {tables: {depth_data}, timestamp} = msg;\n        let depth = depth_data[this.depthField];\n        depth = depth == null ? 0 : parseInt(depth);\n        // if(isNaN(depth)) {\n        //     this.log(`${this.name}: bad depth value ${fields[this.depthField]}`);\n        //     depth = 0;\n        // }\n        return [depth, parseFloat(timestamp)];\n    }\n    override(msg, depth, reason=null) {\n        msg.tables.depth_data[this.depthField] = depth;\n        reason && this.setReason(msg, reason);\n        return msg;\n    }\n    setReason(msg, reason) {\n        let prevReason = msg.tables.depth_data.depth_filt_stages_applied || '';\n        msg.tables.depth_data.depth_filt_stages_applied = prevReason + '|' + reason;\n        return msg;\n    }\n}\n\n\nclass RangeFilter extends Filter {\n    constructor({ height=null, noiseFloor=10, name='range' }={}) {\n        super({ name });\n        this.height = height;\n        this.noiseFloor = noiseFloor;\n    }\n    filter(msg) {\n        let [depth, t] = this.unpack(msg);\n        if(isNaN(depth)) return [msg];\n        const night_median = msg.night_median;\n        // values below this are likely just noise\n        if(depth > 0 && depth < this.noiseFloor) this.override(msg, 0, 'range:noise-floor');\n        // values above this are not possible\n        if(this.height && depth > this.height) this.override(msg, null, 'range:max-height');\n        // values above this are not possible\n        if(night_median && depth > night_median) this.override(msg, null, 'range:night-median');\n        return [msg];\n    }\n}\n\n\nclass GradFilter extends Filter {\n    constructor({ inchmin=10, spotty_coverage_height_ratio=0.05, name='gradient' }={}) {\n        super({ name, nHistory: 1 });\n        this.min_mmps = inchmin * 25.4 / 60 / 1000;\n        this.spotty_coverage_height_ratio = spotty_coverage_height_ratio\n    }\n    clear() { \n        super.clear();\n        this.state.filtering = false;\n        this.state.true_last_depth = null;\n    }\n    filter(msg) {\n        let [depth, t] = this.unpack(msg);\n        if(isNaN(depth)) return [msg];\n        this.state.buffer.push([msg, depth, t]);\n        if(this.state.buffer.length == 1) return [msg];\n\n        // get the rate of change from the last point\n        const [m1, d1, t1] = this.state.buffer[0];\n        if(Math.abs(t - t1) < 100) return [msg];\n        const dddt = (depth-d1) / Math.max(1, t - t1);\n        // check that the change in depth isn't too fast/improbable\n        if (\n            dddt > this.min_mmps || \n            this.filtering && \n            this.state.true_last_depth && \n            Math.abs(depth - this.state.true_last_depth) / this.state.true_last_depth \n                < this.spotty_coverage_height_ratio\n        ) {\n            this.log(`gradient filtered ${d1} to ${depth}mm \u2206d/\u2206t=${dddt}mm/s`);\n            this.override(msg, d1, 'gradient');\n            this.state.buffer[this.state.buffer.length - 1][1] = d1;\n        }\n        else {\n            this.state.filtering = false;\n        }\n        this.state.true_last_depth = depth;\n        return [msg];\n    }\n}\n\n\nclass BlipFilter extends Filter {\n    constructor({ maxMins=6, blipMinDist=2, blipRatio=0.1, downwardBlips=false, isRaining=null, name='blip' }) {\n        super({ name, maxMins, isRaining, nHistory: 2 });\n        this.blipMinDist = blipMinDist;\n        this.blipRatio = blipRatio;\n        this.downwardBlips = downwardBlips;\n        this.clear();\n    }\n    clear() { \n        super.clear();\n        this.state.holding = false;\n    }\n    filter(msg) {\n        let [depth, t] = this.unpack(msg);\n        if(isNaN(depth)) return [msg];\n        this.state.buffer.push([msg, depth, t]);\n        if(this.state.buffer.length == 1) return [msg];\n\n        if(this.state.holding) {\n            let [[m1,d1,t1], [m2,d2,t2], [m3,d3,t3]] = this.state.buffer;\n            // If the blip jump is greater than some threshold and then it goes\n            // back down to close to the same value, set it as the average of the \n            // first and third values.\n            const baseDist = Math.abs(d1 - d3);\n            let blipDist = d2 - d1;\n            blipDist = this.downwardBlips ? Math.abs(blipDist) : blipDist;\n            if (\n                (blipDist > this.blipMinDist) && \n                (baseDist / blipDist < this.blipRatio) && \n                !this.isInvalid(msg, t)\n            ) {\n                this.log(`blip filtered ${[d1, d2, d3]}`);\n                this.override(m2, (d1+d3)/2, this.name);\n            }\n            // blips are only held for one value\n            this.state.holding = false;\n            return [m2, msg];\n        }\n\n        // check if it jumps up above the blip threshold\n        let dm1 = this.state.buffer[this.state.buffer.length-2][1];\n        if(depth - dm1 > this.blipMinDist) {\n            this.state.holding = true;\n            this.log(`blip hold ${dm1} ${depth}`);\n            return [];\n        }\n\n        return [msg];\n    }\n}\n\nclass BoxFilter extends Filter {\n    constructor({ boxRatio=0.05, maxMins=6, isRaining=null, name='box' }) {\n        super({ name, maxMins, isRaining, nHistory: 2 });\n        this.boxRatio = boxRatio;\n        this.state.initialBox = null;\n        this.state.boxStart = null;\n        this.clear();\n    }\n    clear() { \n        super.clear();\n        this.boxDiff = 0;\n        this.state.holding = false;\n        this.state.filtering = false;\n        this.state.initialBox = null;\n        this.state.boxStart = null;\n    }\n    filter(msg) {\n        let [depth, t] = this.unpack(msg);\n        if(isNaN(depth)) return [msg];\n        this.state.buffer.push([msg, depth, t])\n        if(this.state.buffer.length == 1) return [msg];\n\n        let [m2, d2, t2] = this.state.buffer[this.state.buffer.length-2];\n        if(this.state.filtering) {\n            // get the change between the last point\n            const dd = depth-d2;\n            // add it to the total box delta\n            this.state.boxDiff += dd;\n            // the the box conditions are met, squash it\n            if(\n                Math.abs(dd / this.state.boxJump) < this.boxRatio && \n                Math.abs(this.state.boxDiff / this.state.boxJump) < this.boxRatio  && \n                !this.isInvalid(t)\n            ) {\n                // hulk squash\n                this.log(`box filter ${this.state.initialBox} ... ${[d2, depth]} ${Math.abs(this.state.boxDiff)} / ${this.state.boxJump} > ${this.boxRatio}`);\n                if(this.holding) {\n                    this.override(m2, 0, this.name);\n                }\n                this.override(msg, 0, this.name);\n            } else {\n                // otherwise stop filtering\n                this.log(`box hold released ${this.state.initialBox} ... ${[d2, depth]} - ${(t-this.state.boxStart)/1000/60}mins`);\n                this.state.filtering = false;\n            }\n        } else {\n            // check if box conditions are met\n            if(d2 === 0 && depth > 0) {\n                this.log(`box hold ${[d2,  depth]}`);\n                this.state.boxDiff = 0;\n                this.state.holding = true;\n                this.state.filtering = true;\n                this.state.initialBox = [d2,  depth];\n                this.state.boxStart = t;\n                this.state.boxJump = depth - d2;\n                return [];\n            }\n        }\n\n        // if we are holding a value, make sure to send it\n        if(this.state.holding) {\n            this.state.holding = false;\n            return [m2, msg];\n        }\n\n        return [msg];\n    }\n}\n\n\nclass FilterBank {\n    constructor(filters) {\n        this.filters = filters;\n    }\n    filter(...msgs) {\n        return this.filters.reduce((msgs, f) => (\n            msgs.reduce((outputted, msg) => [...outputted, ...f.filter(msg)], [])\n        ), msgs);\n    }\n    clear() {\n        for(let f of this.filters) f.clear();\n    }\n}\n\n\nclass Deque extends Array {\n    constructor(maxsize) {\n        super();\n        this.maxsize = maxsize;\n    }\n    push(x) {\n      super.push(x);\n      while(this.length > this.maxsize) {\n        this.shift();\n      }\n    }\n}\n\nconst buildFBank = (opts={}) => {\n    const isRaining = (t) => {\n        const rain = global.get('rainQueue');\n        if(!rain || t < rain[0][1]) return false;\n        return rain && rain.anyRain();\n    }\n    return new FilterBank([\n        new RangeFilter({ ...opts }),\n        new GradFilter({ ...opts }),\n        new BlipFilter({ isRaining, ...opts }),\n        new BoxFilter({ isRaining, ...opts }),\n        new BlipFilter({ isRaining, ...opts}),\n    ]);\n}\n\nconst oldFbanks = flow.get('filterBanks') || {};\nconst fbanks = {};\nfor(let k in oldFbanks) {\n    fbanks[k] = buildFBank();\n    for(let i in fbanks[k].filters) {\n        const f=fbanks[k].filters[i];\n        const fOld=oldFbanks[k].filters[i];\n        f.state = {...f.state, ...fOld.state};\n    }\n}\nflow.set('filterBanks', fbanks);\n\nflow.set('getFilter', (devid, opts={}) => {\n    if(!fbanks[devid]) fbanks[devid] = buildFBank(opts);\n    return fbanks[devid];\n});",
     "finalize": "",
     "libs": [],
     "x": 1060,
@@ -2093,14 +2117,14 @@
         "p": "payload"
       }
     ],
-    "repeat": "",
+    "repeat": "10",
     "crontab": "",
     "once": false,
     "onceDelay": 0.1,
     "topic": "",
     "payload": "$join(\t   [\t       'variables[]=tair@degC',\t       'variables[]=tslo@degC',\t       'variables[]=relh@percent',\t       'variables[]=precip:incremental@mm',\t       'variables[]=precip@mm',\t       'variables[]=precip_local@mm',\t       'variables[]=precip_total@mm',\t       'variables[]=precip_max_intensity@mm/min',\t       'variables[]=winds_sonic@m/s',\t       'variables[]=srad@W/m^2',\t       'variables[]=pres@millibars',\t       'variables[]=snow_depth@mm',\t       'variables[]=lat@degrees',\t       'variables[]=lon@degrees'\t   ],\t   '&'\t)",
     "payloadType": "jsonata",
-    "x": 280,
+    "x": 290,
     "y": 120,
     "wires": [
       [
